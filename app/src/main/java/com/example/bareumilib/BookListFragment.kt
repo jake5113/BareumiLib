@@ -15,11 +15,18 @@ class BookListFragment : Fragment() {
     ): View? {
         val binding = FragmentBookListBinding.inflate(inflater, container, false)
 
+        val books = arrayListOf<BooksItem>(
+            BooksItem(bookName = "AAAAAAAAAAAA", symbol = "A", registerNumber = "A"),
+            BooksItem(bookName = "BBBBBBB", symbol = "B", registerNumber = "B"),
+            BooksItem(bookName = "CCC", symbol = "C", registerNumber = "C"),
+            BooksItem(bookName = "DD", symbol = "D", registerNumber = "A"),
+            BooksItem(bookName = "E", symbol = "D", registerNumber = "A"),
+            BooksItem(bookName = "F", symbol = "D", registerNumber = "A"),
+            BooksItem(bookName = "G", symbol = "D", registerNumber = "A"),
+            BooksItem(bookName = "HABCDEFGHIJKLMNOPQRST", symbol = "D", registerNumber = "A"),
+        )
 
-
-
-
-
+        binding.booksRecycler.adapter = BookRecyclerAdapter(requireContext(),books)
 
         return binding.root
     }
