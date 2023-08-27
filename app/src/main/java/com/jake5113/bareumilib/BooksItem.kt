@@ -1,4 +1,9 @@
-package com.example.bareumilib
+package com.jake5113.bareumilib
+
+data class BooksResponse(
+    val books: List<BooksItem>
+)
+
 data class BooksItem(
     val author: String? = "",
     val bookName: String,

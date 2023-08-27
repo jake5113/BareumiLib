@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480352973123",
+    "project_id": "bareumilib",
+    "storage_bucket": "bareumilib.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480352973123:android:4699f233f7469b6498bff6",
+        "android_client_info": {
+          "package_name": "com.jake5113.bareumilib"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480352973123-9is6h54ojkqbh0lphkj4o1n4a14qjq1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvc2Vf8RkiW1Bg9N46n0a2cP5-ieBovmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480352973123-9is6h54ojkqbh0lphkj4o1n4a14qjq1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

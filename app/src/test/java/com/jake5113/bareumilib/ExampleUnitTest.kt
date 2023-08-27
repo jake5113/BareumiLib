@@ -1,4 +1,4 @@
-package com.example.bareumilib
+package com.jake5113.bareumilib
 
 import org.junit.Test
 
