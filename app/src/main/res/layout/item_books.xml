@@ -10,16 +10,13 @@
 
     <TextView
         android:id="@+id/book_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/book_img"
         android:layout_alignBottom="@id/book_img"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="end"
-        android:maxLines="1"
+        android:layout_margin="4dp"
+        android:gravity="start"
+        android:maxLines="2"
         android:ellipsize="end"
         android:hint="책 제목"
         android:textSize="12sp" />

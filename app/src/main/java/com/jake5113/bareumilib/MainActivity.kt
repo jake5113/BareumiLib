@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     val booksResponse = response.body()
                     booksList = booksResponse!!.books
-                    bookListFragment.binding.booksRecycler.adapter?.notifyDataSetChanged()
+                    bookListFragment.setBooksList(booksList)
                 }
 
                 override fun onFailure(call: Call<BooksResponse>, t: Throwable) {

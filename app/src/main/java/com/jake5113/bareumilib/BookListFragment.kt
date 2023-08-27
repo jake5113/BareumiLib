@@ -19,23 +19,9 @@ class BookListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBookListBinding.inflate(inflater, container, false)
-
-        // 테스트 코드
-/*        val books = arrayListOf<BooksItem>(
-            BooksItem(bookName = "AAAAAAAAAAAA", symbol = "A", registerNumber = "A"),
-            BooksItem(bookName = "BBBBBBB", symbol = "B", registerNumber = "B"),
-            BooksItem(bookName = "CCC", symbol = "C", registerNumber = "C"),
-            BooksItem(bookName = "DD", symbol = "D", registerNumber = "A"),
-            BooksItem(bookName = "E", symbol = "D", registerNumber = "A"),
-            BooksItem(bookName = "F", symbol = "D", registerNumber = "A"),
-            BooksItem(bookName = "G", symbol = "D", registerNumber = "A"),
-            BooksItem(bookName = "HABCDEFGHIJKLMNOPQRST", symbol = "D", registerNumber = "A"),
-        )*/
-
-        val books = (activity as MainActivity).booksList
-
-        binding.booksRecycler.adapter = BookRecyclerAdapter(requireContext(),books)
-
         return binding.root
+    }
+    fun setBooksList(books: List<BooksItem>) {
+        binding.booksRecycler.adapter = BookRecyclerAdapter(requireContext(), books)
     }
 }
