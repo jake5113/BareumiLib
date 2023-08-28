@@ -17,7 +17,8 @@ class BookRecyclerAdapter(private var context:Context, private var booksList: Li
 
     override fun getItemCount(): Int = booksList.size
     override fun onBindViewHolder(holder: VH, position: Int) {
-        Glide.with(context).load( "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg").into(holder.binding.bookImg)
-        holder.binding.bookText.text = booksList[position].bookName
+        val book = booksList[position]
+        Glide.with(context).load( book.imgUrl).into(holder.binding.bookImg)
+        holder.binding.bookText.text = book.page
     }
 }

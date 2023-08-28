@@ -6,7 +6,8 @@
     <ImageView
         android:id="@+id/book_img"
         android:layout_width="120dp"
-        android:layout_height="170dp" />
+        android:layout_height="170dp"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/book_text"

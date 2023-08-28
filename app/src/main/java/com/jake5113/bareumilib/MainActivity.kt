@@ -7,12 +7,9 @@ import com.jake5113.bareumilib.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +24,14 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://bareumilib-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val retrofitApiService = retrofit.create(BooksApi::class.java)
+        getBooksFromFirebase()
+    }
+
+    private fun getBooksFromFirebase() {
+        val retrofit =
+            RetrofitHelper.getRetrofitInstance("https://bareumilib-default-rtdb.asia-southeast1.firebasedatabase.app/")
+
+        val retrofitApiService = retrofit.create(RetrofitApi::class.java)
         retrofitApiService.getBooks().enqueue(
             object : Callback<BooksResponse> {
                 override fun onResponse(
@@ -40,6 +39,18 @@ class MainActivity : AppCompatActivity() {
                     response: Response<BooksResponse>
                 ) {
                     val booksResponse = response.body()
+
+                    // 키가 없는 값 초기화
+                    booksResponse?.books?.map { booksItem ->
+                        booksItem.page = getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
+                        booksItem.symbol =
+                            getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
+                        booksItem.imgUrl = getDefaultValueForEmptyField(
+                            booksItem.imgUrl,
+                            "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
+                        )
+
+                    }
                     booksList = booksResponse!!.books
                     bookListFragment.setBooksList(booksList)
                 }
@@ -47,9 +58,13 @@ class MainActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<BooksResponse>, t: Throwable) {
                     Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
                 }
-
             }
         )
-
     }
 }
+
+private fun getDefaultValueForEmptyField(value: String?, defaultValue: String): String =
+    if (value.isNullOrEmpty()) defaultValue else value
+
+
+
