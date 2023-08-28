@@ -1,4 +1,4 @@
-package com.example.bareumilib
+package com.jake5113.bareumilib
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
