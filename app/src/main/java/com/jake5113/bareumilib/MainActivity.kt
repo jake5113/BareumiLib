@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         getBooksFromFirebase()
+        getImgUrlFromNaver("9788911026319")
     }
 
     private fun getBooksFromFirebase() {
@@ -45,11 +47,15 @@ class MainActivity : AppCompatActivity() {
                         booksItem.page = getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
                         booksItem.symbol =
                             getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
+
+                        if (booksItem.imgUrl.isNullOrEmpty() && !booksItem.iSBN.isNullOrEmpty()){
+                            //booksItem.imgUrl = getImgUrlFromNaver(booksItem.iSBN!!)
+                        }
+
                         booksItem.imgUrl = getDefaultValueForEmptyField(
                             booksItem.imgUrl,
                             "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
                         )
-
                     }
                     booksList = booksResponse!!.books
                     bookListFragment.setBooksList(booksList)
@@ -57,6 +63,31 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<BooksResponse>, t: Throwable) {
                     Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+    }
+
+    private fun getImgUrlFromNaver(isbn: String) {
+        val CLIENT_ID = "5ZdEh87Zvmp6dRapnTrc"
+        val CLIENT_SECRET = "cpEvsDKmfj"
+
+        val retrofit =
+            RetrofitHelper.getRetrofitInstance("https://openapi.naver.com/v1/search/")
+
+        val retrofitApiService = retrofit.create(RetrofitApi::class.java)
+        retrofitApiService.getImgUrl(CLIENT_ID, CLIENT_SECRET, isbn).enqueue(
+            object: Callback<NaverBooksItem>{
+                override fun onResponse(
+                    call: Call<NaverBooksItem>,
+                    response: Response<NaverBooksItem>
+                ) {
+                    // TODO: XML 파싱중
+                    Toast.makeText(this@MainActivity, response.body().toString(), Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(call: Call<NaverBooksItem>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, t.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         )
