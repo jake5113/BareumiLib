@@ -1,5 +1,6 @@
 package com.jake5113.bareumilib
 
+import RssFeed
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -10,12 +11,12 @@ interface RetrofitApi {
     @GET("data.json")
     fun getBooks(): Call<BooksResponse>
 
-    @GET("book_adv.xml")
-    fun getImgUrl(
-        @Header("X-Naver-Client-Id") client_id: String,
-        @Header("X-Naver-Client-Secret") client_secret: String,
+    @GET("/v1/search/book_adv.xml")
+    fun searchBookByISBN(
+        @Header("X-Naver-Client-Id") clientId: String,
+        @Header("X-Naver-Client-Secret") clientSecret: String,
         @Query("d_isbn") isbn: String
-    ): Call<NaverBooksItem>
+    ): Call<RssFeed>
 }
 
 

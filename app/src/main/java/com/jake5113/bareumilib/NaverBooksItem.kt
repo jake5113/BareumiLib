@@ -1,22 +1,53 @@
-package com.jake5113.bareumilib
+import com.tickaroo.tikxml.annotation.*
 
-// TODO: XML 파싱중
+@Xml(name = "rss")
+data class RssFeed(
+    @Element(name = "channel")
+    val channel: Channel
+)
+
 data class Channel(
-    val channel : Items
-)
-data class Items(
-    val items: ArrayList<NaverBooksItem>
+    @Element(name = "title")
+    val title: String,
+
+    @Element(name = "link")
+    val link: String,
+
+    @Element(name = "description")
+    val description: String,
+
+    @Element(name = "item")
+    val items: List<BookItem>
 )
 
-data class NaverBooksItem(
-    val author: String = "",
-    val description: String = "",
-    val discount: String = "",
-    val image: String = "",
-    val isbn: String = "",
-    val link: String = "",
-    val price: String = "",
-    val pubdate: String = "",
-    val publisher: String = "",
-    val title: String = ""
+data class BookItem(
+    @Element(name = "title")
+    val title: String,
+
+    @Element(name = "link")
+    val link: String,
+
+    @Element(name = "image")
+    val image: String,
+
+    @Element(name = "author")
+    val author: String,
+
+    @Element(name = "price")
+    val price: String,
+
+    @Element(name = "discount")
+    val discount: String,
+
+    @Element(name = "publisher")
+    val publisher: String,
+
+    @Element(name = "pubdate")
+    val pubdate: String,
+
+    @Element(name = "isbn")
+    val isbn: String,
+
+    @Element(name = "description")
+    val description: String
 )
