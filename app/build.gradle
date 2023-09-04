@@ -53,23 +53,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    // Firebase
+    //Firebase
     implementation platform('com.google.firebase:firebase-bom:32.2.2')
     //Firebase Database
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
 
-    // Retrofit and gson
+    //Retrofit and gson
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
 
-    //tikxml
-    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
-    implementation 'com.tickaroo.tikxml:core:0.8.13'
-    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
-
-    annotationProcessor 'com.tickaroo.tikxml:processor:0.8.13'
-
-    // Coroutines
+    //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    //Kakao
+    implementation "com.kakao.sdk:v2-all:2.15.0"
 }

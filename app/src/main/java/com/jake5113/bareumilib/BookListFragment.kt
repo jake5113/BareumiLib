@@ -13,12 +13,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class BookListFragment : Fragment() {
-    private lateinit var binding : FragmentBookListBinding
+    lateinit var binding : FragmentBookListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBookListBinding.inflate(inflater, container, false)
+
         return binding.root
     }
     fun setBooksList(books: List<BooksItem>) {
