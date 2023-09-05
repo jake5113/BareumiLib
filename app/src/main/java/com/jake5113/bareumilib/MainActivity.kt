@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                         booksResponse.books.subList(0, 5).map { booksItem ->
                             booksItem.page = getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
                             booksItem.symbol = getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
-                            booksItem.imgUrl = getBookImgFromKakao(booksItem.bookName)
+                            booksItem.imgUrl = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
                         }
                         booksList = booksResponse.books
                         bookListFragment.setBooksList(booksList.subList(0, 5))
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         val retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com/")
         val retrofitApiService = retrofit.create(RetrofitApi::class.java)
-        retrofitApiService.searchBookImg(KAKAO_KEY, 1,1, bookName,"accuracy","title" ).enqueue(
+        retrofitApiService.searchBookImg(KAKAO_KEY, 1,1, bookName,"accuracy","isbn" ).enqueue(
             object : Callback<KakaoBookApi> {
                 override fun onResponse(
                     call: Call<KakaoBookApi>,

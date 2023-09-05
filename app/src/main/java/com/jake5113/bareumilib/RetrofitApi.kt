@@ -14,7 +14,7 @@ interface RetrofitApi {
         @Header("Authorization") clientId: String,
         @Query("page") page: Int,
         @Query("size") size: Int,
-        @Query("query") bookName: String,
+        @Query("query") isbn: String,
         @Query("sort") sort: String,
         @Query("target") target: String
     ): Call<KakaoBookApi>
