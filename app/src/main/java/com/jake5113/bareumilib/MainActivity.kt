@@ -44,13 +44,13 @@ class MainActivity : AppCompatActivity() {
                     if (booksResponse != null) {
 
                         // 키가 없는 값 초기화
-                        booksResponse.books.subList(0, 5).map { booksItem ->
+                        booksResponse.books.map { booksItem ->
                             booksItem.page = getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
                             booksItem.symbol = getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
-                            booksItem.imgUrl = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
+                            booksItem.imgUrl = getDefaultValueForEmptyField(booksItem.imgUrl, "https://cdn.pixabay.com/photo/2015/07/23/14/58/child-857021_1280.jpg")
                         }
                         booksList = booksResponse.books
-                        bookListFragment.setBooksList(booksList.subList(0, 5))
+                        bookListFragment.setBooksList(booksList)
                     }
                 }
 
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun getBookImgFromKakao(bookName: String): String {
+/*    private fun getBookImgFromKakao(bookName: String): String {
         val KAKAO_KEY = "KakaoAK b8f3d3ea5671a2aaf80358b650b8fbf4"
         var thumbnailUrl = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
         )
         return thumbnailUrl
-    }
+    }*/
 }
 
 
