@@ -1,6 +1,9 @@
 package com.jake5113.bareumilib
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +22,11 @@ class BookRecyclerAdapter(private var context:Context, private var booksList: Li
     override fun onBindViewHolder(holder: VH, position: Int) {
         val book = booksList[position]
         Glide.with(context).load( book.imgUrl).into(holder.binding.bookImg)
-        holder.binding.bookText.text = book.page
+        holder.binding.bookText.text = book.bookName
+        holder.binding.root.setOnClickListener {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("BookData", book as Parcelable)
+            context.startActivity(intent)
+        }
     }
 }
