@@ -17,7 +17,8 @@ data class BooksItem(
     var publisher: String? = "",
     var publishYear: String? = "",
     var registerNumber: String,
-    var imgUrl: String? = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
+    var imgUrl: String? = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg",
+    var tag: String
 ) : Parcelable, Serializable {
 
     constructor(parcel: Parcel) : this(
@@ -30,7 +31,8 @@ data class BooksItem(
         parcel.readString(),
         parcel.readString(),
         parcel.readString() ?: "",
-        parcel.readString()
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -45,6 +47,7 @@ data class BooksItem(
             writeString(publishYear)
             writeString(registerNumber)
             writeString(imgUrl)
+            writeString(tag)
         }
     }
 
