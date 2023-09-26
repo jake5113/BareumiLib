@@ -2,8 +2,13 @@ package com.jake5113.bareumilib
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.jake5113.bareumilib.databinding.ActivityMainBinding
+import kotlinx.coroutines.selects.select
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
+    val category = mutableListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +31,32 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, bookListFragment)
                 .commit()
         }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.books_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+        }
+
+        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+
 
         getBooksFromFirebase()
     }
