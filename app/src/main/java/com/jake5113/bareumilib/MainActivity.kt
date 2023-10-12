@@ -8,7 +8,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.jake5113.bareumilib.databinding.ActivityMainBinding
-import kotlinx.coroutines.selects.select
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
-    val category = mutableListOf<String>()
+    val category = mutableSetOf<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
         getBooksFromFirebase()
     }
 
@@ -86,9 +84,11 @@ class MainActivity : AppCompatActivity() {
                                 booksItem.imgUrl,
                                 "https://cdn.pixabay.com/photo/2015/07/23/14/58/child-857021_1280.jpg"
                             )
+                            category.add(booksItem.tag)
                         }
                         booksList = booksResponse.books
                         bookListFragment.setBooksList(booksList)
+                        bookListFragment.setCategory(category)
                     }
                 }
 

@@ -8,7 +8,6 @@
     android:padding="8dp"
     tools:context=".DetailActivity">
 
-
     <ImageView
         android:id="@+id/book_img"
         android:layout_width="match_parent"
