@@ -28,8 +28,4 @@ class BookListFragment : Fragment() {
     fun setBooksList(books: List<BooksItem>) {
         binding.booksRecycler.adapter = BookRecyclerAdapter(requireContext(), books)
     }
-
-    fun setCategory(category: Set<String>){
-        Toast.makeText(requireContext(), category.toString(), Toast.LENGTH_LONG).show()
-    }
 }

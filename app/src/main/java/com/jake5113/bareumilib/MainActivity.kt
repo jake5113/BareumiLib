@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
-    val category = mutableSetOf<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,12 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                
+                val categoryBooks: List<BooksItem> = if (position == 0) {
+                    booksList
+                } else {
+                    booksList.filter { it.tag == parent?.getItemAtPosition(position) as String}
+                }
+                bookListFragment.setBooksList(categoryBooks)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -55,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
         getBooksFromFirebase()
     }
 
@@ -83,12 +86,9 @@ class MainActivity : AppCompatActivity() {
                             booksItem.imgUrl = getDefaultValueForEmptyField(
                                 booksItem.imgUrl,
                                 "https://cdn.pixabay.com/photo/2015/07/23/14/58/child-857021_1280.jpg"
-                            )
-                            category.add(booksItem.tag)
-                        }
+                            )}
                         booksList = booksResponse.books
                         bookListFragment.setBooksList(booksList)
-                        bookListFragment.setCategory(category)
                     }
                 }
 
