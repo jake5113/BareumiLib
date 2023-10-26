@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     var booksList: List<BooksItem> = listOf()
     val bookListFragment = BookListFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
