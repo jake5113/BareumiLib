@@ -2,6 +2,10 @@ package com.jake5113.bareumilib
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.jake5113.bareumilib.databinding.ActivityMainBinding
 import retrofit2.Call
@@ -25,6 +29,35 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.books_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+        }
+
+        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val categoryBooks: List<BooksItem> = if (position == 0) {
+                    booksList
+                } else {
+                    booksList.filter { it.tag == parent?.getItemAtPosition(position) as String}
+                }
+                bookListFragment.setBooksList(categoryBooks)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
         getBooksFromFirebase()
     }
 
@@ -45,10 +78,14 @@ class MainActivity : AppCompatActivity() {
 
                         // 키가 없는 값 초기화
                         booksResponse.books.map { booksItem ->
-                            booksItem.page = getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
-                            booksItem.symbol = getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
-                            booksItem.imgUrl = getDefaultValueForEmptyField(booksItem.imgUrl, "https://cdn.pixabay.com/photo/2015/07/23/14/58/child-857021_1280.jpg")
-                        }
+                            booksItem.page =
+                                getDefaultValueForEmptyField(booksItem.page, "페이지 정보 없음")
+                            booksItem.symbol =
+                                getDefaultValueForEmptyField(booksItem.symbol, "페이지 정보 없음")
+                            booksItem.imgUrl = getDefaultValueForEmptyField(
+                                booksItem.imgUrl,
+                                "https://cdn.pixabay.com/photo/2015/07/23/14/58/child-857021_1280.jpg"
+                            )}
                         booksList = booksResponse.books
                         bookListFragment.setBooksList(booksList)
                     }
@@ -56,49 +93,51 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<BooksResponse>, t: Throwable) {
                     runOnUiThread {
-                    Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         )
     }
 
-/*    private fun getBookImgFromKakao(bookName: String): String {
-        val KAKAO_KEY = "KakaoAK b8f3d3ea5671a2aaf80358b650b8fbf4"
-        var thumbnailUrl = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
+    private fun getDefaultValueForEmptyField(value: String?, defaultValue: String): String =
+        if (value.isNullOrEmpty()) defaultValue else value
 
-        val retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com/")
-        val retrofitApiService = retrofit.create(RetrofitApi::class.java)
-        retrofitApiService.searchBookImg(KAKAO_KEY, 1,1, bookName,"accuracy","isbn" ).enqueue(
-            object : Callback<KakaoBookApi> {
-                override fun onResponse(
-                    call: Call<KakaoBookApi>,
-                    response: Response<KakaoBookApi>
-                ) {
-                    val bookImgResponse = response.body()
-                    try{
-                        thumbnailUrl = bookImgResponse!!.documents?.get(0)?.thumbnail ?: thumbnailUrl
-                    }catch (e:Exception){
+    /*    private fun getBookImgFromKakao(bookName: String): String {
+            val KAKAO_KEY = "KakaoAK b8f3d3ea5671a2aaf80358b650b8fbf4"
+            var thumbnailUrl = "https://cdn.pixabay.com/photo/2020/03/27/17/03/shopping-4974313__340.jpg"
+
+            val retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com/")
+            val retrofitApiService = retrofit.create(RetrofitApi::class.java)
+            retrofitApiService.searchBookImg(KAKAO_KEY, 1,1, bookName,"accuracy","isbn" ).enqueue(
+                object : Callback<KakaoBookApi> {
+                    override fun onResponse(
+                        call: Call<KakaoBookApi>,
+                        response: Response<KakaoBookApi>
+                    ) {
+                        val bookImgResponse = response.body()
+                        try{
+                            thumbnailUrl = bookImgResponse!!.documents?.get(0)?.thumbnail ?: thumbnailUrl
+                        }catch (e:Exception){
+                            runOnUiThread {
+                                Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<KakaoBookApi>, t: Throwable) {
                         runOnUiThread {
-                            Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-
-                override fun onFailure(call: Call<KakaoBookApi>, t: Throwable) {
-                    runOnUiThread {
-                        Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        )
-        return thumbnailUrl
-    }*/
+            )
+            return thumbnailUrl
+        }*/
 }
 
 
-private fun getDefaultValueForEmptyField(value: String?, defaultValue: String): String =
-    if (value.isNullOrEmpty()) defaultValue else value
+
 
 
 

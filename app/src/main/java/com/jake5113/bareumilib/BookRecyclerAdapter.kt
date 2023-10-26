@@ -22,7 +22,7 @@ class BookRecyclerAdapter(private var context:Context, private var booksList: Li
     override fun onBindViewHolder(holder: VH, position: Int) {
         val book = booksList[position]
         Glide.with(context).load( book.imgUrl).into(holder.binding.bookImg)
-        holder.binding.bookText.text = book.bookName
+//        holder.binding.bookText.text = book.bookName
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("BookData", book as Parcelable)

@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.BareumiLib" parent="Base.Theme.BareumiLib" />
+    <style name="Theme.BareumiLib" parent="Base.Theme.BareumiLib" >
+        <item name="android:statusBarColor">@color/material_on_surface_disabled</item>
+    </style>
 </resources>

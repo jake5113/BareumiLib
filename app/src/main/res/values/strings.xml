@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">BareumiLib</string>
+    <string name="app_name">바르미도서관</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="books_array">
+        <item>전체</item>
+        <item>총류</item>
+        <item>철학</item>
+        <item>종교</item>
+        <item>사회과학</item>
+        <item>순수과학</item>
+        <item>기술과학</item>
+        <item>예술</item>
+        <item>언어</item>
+        <item>문학</item>
+        <item>역사</item>
+    </string-array>
+
 </resources>

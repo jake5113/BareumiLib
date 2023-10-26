@@ -6,8 +6,10 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface RetrofitApi {
-    @GET("data.json")
+    @GET("data.json?")
     fun getBooks(): Call<BooksResponse>
+
+    //orderBy="tag"&equalTo="문학"&print=pretty
 
     @GET("v3/search/book")
     fun searchBookImg(
